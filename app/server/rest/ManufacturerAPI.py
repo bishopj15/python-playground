@@ -4,6 +4,8 @@ from server.dao import ManufacturerDAO
 import json
 from server import app, api
 import cairosvg
+from pptx import Presentation
+from pptx.util import Inches
 
 resource_fields = {
 'pkey': fields.Integer,
@@ -28,9 +30,27 @@ class TestAPI(Resource):
         response.headers["Content-Disposition"] = "attachment; filename=test.pdf"
         return response
 
+class PptxAPI(Resource):
+    def get(self):
+        # img_path = 'server/static/test.svg'
+        img_path = 'server/static/login_screen.png'
+        prs = Presentation()
+        blank_slide_layout = prs.slide_layouts[6]
+        slide = prs.slides.add_slide(blank_slide_layout)
+
+        left = top = Inches(1)
+        pic = slide.shapes.add_picture(img_path, left, top)
+
+        prs.save('test.pptx')
+
+        response = make_response(prs)
+        response.headers["Content-Disposition"] = "attachment; filename=ppt.pptx"
+        return response
+
 
 
 
 
 api.add_resource(ManufacturerAPI, '/api/v1.0/manufacturer', endpoint='manufacturer')
 api.add_resource(TestAPI, '/test', endpoint='/test')
+api.add_resource(PptxAPI, '/pptx', endpoint='/pptx')
