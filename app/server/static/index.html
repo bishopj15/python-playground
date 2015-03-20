@@ -1,0 +1,76 @@
+<!doctype html>
+<html>
+    <head lang='en'>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+
+        <title>DAF Web Service</title>
+
+
+    </head>
+    <body ng-app='app'>
+        <div class='container-fluid'>
+            <div class='row header-tool'>
+
+                <div id='filter-group'>
+                    <div class="btn-group col-md-2" ng-controller='AddModalCtrl'>
+                        <button class="btn btn-primary ">Filter</button>
+                    </div>
+
+                    <select class="col-md-2">
+                        <option value="1">Filter 1</option>
+                        <option value="2">Filter 2</option>
+                        <option value="3">Filter 3</option>
+                        <option value="4">Filter 4</option>
+                    </select>
+                </div>
+
+
+                <div class="btn-group col-md-2" dropdown is-open="status.isopen" ng-controller='DropdownCtrl'>
+                    <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                        Downloads <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-repeat='format in formats'>{{format}}</li>
+                    </ul>
+                </div>
+
+                <div class="btn-group col-md-2" dropdown is-open="status.isopen" ng-controller='DropdownCtrl'>
+                    <button type="button" class="btn btn-primary dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+                        Products <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li ng-repeat='item in items'>{{item}}</li>
+                    </ul>
+                </div>
+
+                <div class="btn-group col-md-2" ng-controller='AddModalCtrl'>
+                    <button type="button" class="btn btn-primary" ng-click='open()'>Add</button>
+                </div>
+
+                <script type="text/ng-template" id="addModal.html">
+                    <div class="modal-header">
+                        <h3 class="modal-title">Add a product</h3>
+                    </div>
+
+                    <div class="modal-body">
+                        Product: <input type='text' />
+                    </div>
+
+                    <div class="modal-footer">
+                        <button class="btn btn-primary" ng-click="ok()">Save</button>
+                        <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
+                    </div>
+                </script>
+            </div>
+            <!-- end header-tool -->
+
+            <div id='main-chart' class='row main-chart'>
+            </div>
+
+            <div class='row footer-tool'>
+            </div>
+
+        </div>
+    </body>
+</html>

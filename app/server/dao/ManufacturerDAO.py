@@ -12,10 +12,10 @@ cnx = mysql.connector.connect(**config)
 def getManufacturers():
     manufacturers = []
     cursor = cnx.cursor()
-    query = ("SELECT pkey, description  FROM equipment_type")
+    query = ("SELECT pkey, name  FROM manufacturer")
     cursor.execute(query)
-    for (pkey, description) in cursor:
-        temp = Manufacturer(pkey, description)
+    for (pkey, name) in cursor:
+        temp = Manufacturer(pkey, name)
         manufacturers.append(temp)
     cursor.close()
     cnx.close()
