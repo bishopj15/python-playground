@@ -41,9 +41,18 @@ class PptxAPI(Resource):
         left = top = Inches(1)
         pic = slide.shapes.add_picture(img_path, left, top)
 
-        prs.save('test.pptx')
+        slide = prs.slides.add_slide(blank_slide_layout)
 
-        response = make_response(prs)
+        left = top = Inches(1)
+        pic = slide.shapes.add_picture(img_path, left, top)
+
+
+        prs.save('test.pptx')
+        ppt = open('test.pptx', 'rb')
+        data = ppt.read() # if you only wanted to read 512 bytes, do .read(512)
+        ppt.close()
+
+        response = make_response(data)
         response.headers["Content-Disposition"] = "attachment; filename=ppt.pptx"
         return response
 
